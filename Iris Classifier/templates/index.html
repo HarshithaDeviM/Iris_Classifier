@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('/static/Iris.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: #E7E4F1;
+            background-position: right top;
+        }
+
+        .container {
+            width: 50%;
+            margin: 100px 50px 30px 50px;
+            background-color: #ffffff33;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .form-container {
+            width: 100%;
+            text-align: left;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            width: 100px;
+            padding: 10px;
+            background-color: #B5A5D2;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            font-weight: bold;
+        }
+
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .result-container {
+            margin-top: 20px;
+            text-align: center; 
+        }
+
+        .result {
+            text-align: left;
+        }
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: auto;
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+        }
+    </style>
+    <title>Iris Species Prediction</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Iris Species Prediction</h1>
+
+        <div class="form-container">
+            <form id="irisForm" method="POST" action="/submit-data">
+                <div class="input-container">
+                    <label for="sepalLength">Sepal Length (cm): <span id="sepalLengthValue">4</span></label>
+                    <input type="range" id="sepalLength" name="sepal_length" min="4" max="8" step="0.1" value="4">
+                </div>
+
+                <div class="input-container">
+                    <label for="sepalWidth">Sepal Width (cm): <span id="sepalWidthValue">2</span></label>
+                    <input type="range" id="sepalWidth" name="sepal_width" min="2" max="4.5" step="0.1" value="2">
+                </div>
+
+                <div class="input-container">
+                    <label for="petalLength">Petal Length (cm): <span id="petalLengthValue">1</span></label>
+                    <input type="range" id="petalLength" name="petal_length" min="1" max="7" step="0.1" value="1">
+                </div>
+
+                <div class="input-container">
+                    <label for="petalWidth">Petal Width (cm): <span id="petalWidthValue">0.10</span></label>
+                    <input type="range" id="petalWidth" name="petal_width" min="0.10" max="2.50" step="0.1" value="0.10">
+                </div>
+
+                <input type="submit" value="Predict">
+            </form>
+        </div>
+
+        <div class="result-container">
+            <h3>
+                According to the measurements, it is {{ prediction }} species.
+            </h3>
+        </div>
+    </div>
+
+    <script>
+        const sliders = document.querySelectorAll('input[type="range"]');
+        sliders.forEach(function (slider) {
+            const spanId = slider.id + 'Value';
+            const span = document.getElementById(spanId);
+
+            slider.addEventListener('input', function () {
+                span.innerText = slider.value;
+            });
+        });
+    </script>
+
+</body>
+
+</html>
